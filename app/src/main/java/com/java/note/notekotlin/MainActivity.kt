@@ -2,11 +2,15 @@ package com.java.note.notekotlin
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
+import com.java.note.notekotlin.adapter.TabAdapter
 import com.java.note.notekotlin.fragment.SplashFragment
 import com.java.note.notekotlin.utils.AppPreferences
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         fragmentManager = supportFragmentManager
         runSplash()
+
+        setUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,9 +55,39 @@ class MainActivity : AppCompatActivity() {
             val splashFragment = SplashFragment()
             fragmentManager
                 .beginTransaction()
-                .replace(R.id.container, splashFragment)
+                .replace(R.id.contentFrame, splashFragment)
                 .addToBackStack(null)
                 .commit()
         }
     }
+
+    private fun setUI() {
+
+        toolbar.setTitleTextColor(getColorResource(R.color.white))
+        setSupportActionBar(toolbar)
+
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.current_task))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.done_task))
+
+        val tabAdapter = TabAdapter(fragmentManager, 2)
+        viewPager.adapter = tabAdapter
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+            }
+        })
+    }
+
+    private fun getColorResource(colorId: Int) =
+        ContextCompat.getColor(this, colorId)
+
 }
