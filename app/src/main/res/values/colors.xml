@@ -17,4 +17,7 @@
 
     <color name="gray_50">#fafafa</color>
     <color name="gray_200">#eeeeee</color>
+
+    <color name="primary_text_material_light">#de000000</color>
+    <color name="secondary_text_material_light">#8a000000</color>
 </resources>
