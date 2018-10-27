@@ -10,7 +10,6 @@ import com.java.note.notekotlin.R
 import com.java.note.notekotlin.utils.getToolbarTitleColor
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_new_task.*
-import kotlinx.android.synthetic.main.activity_new_task.view.*
 
 class NewTaskActivity : AppCompatActivity() {
 
@@ -26,12 +25,12 @@ class NewTaskActivity : AppCompatActivity() {
         tilTaskDate.hint = getString(R.string.task_date)
         tilTaskTime.hint = getString(R.string.task_time)
 
-        if (tilTaskTitle.editTaskTitle.length() == 0) {
+        if (editTaskTitle.length() == 0) {
             buttonOk.isEnabled = false
             tilTaskTitle.error = getString(R.string.dialog_error_empty_title)
         }
 
-        tilTaskTitle.editTaskTitle.addTextChangedListener(object : TextWatcher {
+        editTaskTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable) {
             }
 
@@ -49,7 +48,7 @@ class NewTaskActivity : AppCompatActivity() {
             }
         })
 
-        tilTaskDate.editTaskDate.setOnClickListener {
+        editTaskDate.setOnClickListener {
             if (it is EditText) {
                 if (it.length() == 0) {
                     it.setText(" ")
@@ -59,7 +58,7 @@ class NewTaskActivity : AppCompatActivity() {
             }
         }
 
-        tilTaskTime.editTaskTime.setOnClickListener {
+        editTaskTime.setOnClickListener {
             if (it is EditText) {
                 if (it.length() == 0) {
                     it.setText(" ")
@@ -70,6 +69,8 @@ class NewTaskActivity : AppCompatActivity() {
         }
 
         buttonOk.setOnClickListener { }
-        buttonCancel.setOnClickListener { }
+        buttonCancel.setOnClickListener {
+            onBackPressed()
+        }
     }
 }
