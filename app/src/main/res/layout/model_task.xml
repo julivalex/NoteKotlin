@@ -9,6 +9,7 @@
 
     <TextView
             android:id="@+id/tvTaskTitle"
+            android:text="Title"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="72dp"
@@ -20,6 +21,7 @@
 
     <TextView
             android:id="@+id/tvTaskDate"
+            android:text="Date"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

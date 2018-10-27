@@ -9,7 +9,7 @@
 
     <string name="dialog_editing_title">Editing task</string>
 
-    <string name="dialog_title">Adding task</string>
+    <string name="new_task_title">New task</string>
     <string name="task_title">Title</string>
     <string name="task_date">Date</string>
     <string name="task_time">Time</string>

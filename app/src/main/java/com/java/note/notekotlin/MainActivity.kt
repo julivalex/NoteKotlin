@@ -1,5 +1,6 @@
 package com.java.note.notekotlin
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -9,7 +10,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
 import com.java.note.notekotlin.fragment.SplashFragment
+import com.java.note.notekotlin.newtask.NewTaskActivity
 import com.java.note.notekotlin.utils.AppPreferences
+import com.java.note.notekotlin.utils.getColorResource
+import com.java.note.notekotlin.utils.getToolbarTitleColor
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,16 +32,16 @@ class MainActivity : AppCompatActivity() {
         setUI()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        val splashItem = menu?.findItem(R.id.menuActionSplash)
+        val splashItem = menu.findItem(R.id.menuActionSplash)
         splashItem?.isChecked = AppPreferences.firstRun
 
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item?.itemId
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         if (id == R.id.menuActionSplash) {
             item.isChecked = !item.isChecked
             AppPreferences.firstRun = item.isChecked
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUI() {
 
-        toolbar.setTitleTextColor(getColorResource(R.color.white))
+        toolbar.setTitleTextColor(getToolbarTitleColor(this))
         setSupportActionBar(toolbar)
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.current_task))
@@ -85,9 +89,9 @@ class MainActivity : AppCompatActivity() {
                 viewPager.currentItem = tab.position
             }
         })
+
+        fab.setOnClickListener {
+            startActivity(Intent(this, NewTaskActivity::class.java))
+        }
     }
-
-    private fun getColorResource(colorId: Int) =
-        ContextCompat.getColor(this, colorId)
-
 }

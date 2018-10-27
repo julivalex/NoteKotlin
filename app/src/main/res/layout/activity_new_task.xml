@@ -9,55 +9,103 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputLayout
-                android:id="@+id/tilTaskTitle"
+        <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbarLayoutNewTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbarNewTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="16dp">
-            <EditText
+                android:layout_below="@+id/appbarLayoutNewTask">
+
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilTaskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
-        </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp">
+                <EditText
+                        android:id="@+id/editTaskTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"/>
+            </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
-                android:id="@+id/tilTaskDate"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="16dp"
-                android:layout_centerInParent="true"
-                android:layout_below="@+id/tilTaskTitle">
-            <EditText
-                    android:layout_width="match_parent"
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilTaskDate"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:cursorVisible="false"
-                    android:inputType="none"
-                    android:textSize="16sp"/>
-        </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tilTaskTitle">
+                <EditText
+                        android:id="@+id/editTaskDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:cursorVisible="false"
+                        android:inputType="none"
+                        android:textSize="16sp"/>
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-                android:id="@+id/tilTaskTime"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="16dp"
-                android:layout_centerInParent="true"
-                android:layout_below="@+id/tilTaskDate">
-            <EditText
-                    android:layout_width="match_parent"
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilTaskTime"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:cursorVisible="false"
-                    android:inputType="none"
-                    android:textSize="16sp"/>
-        </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tilTaskTitle">
+                <EditText
+                        android:id="@+id/editTaskTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:cursorVisible="false"
+                        android:inputType="none"
+                        android:textSize="16sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                    android:id="@+id/buttonOk"
+                    android:text="@string/dialog_ok"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_below="@id/tilTaskTime"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+            <Button
+                    android:id="@+id/buttonCancel"
+                    android:text="@string/dialog_cancel"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/tilTaskTime"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
