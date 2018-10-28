@@ -1,11 +1,15 @@
 package com.java.note.notekotlin.newtask
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import com.java.note.notekotlin.R
+import com.java.note.notekotlin.utils.DateTimeConstants
+import com.java.note.notekotlin.utils.getDateTime
 
 import com.java.note.notekotlin.utils.getToolbarTitleColor
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,9 +17,15 @@ import kotlinx.android.synthetic.main.activity_new_task.*
 
 class NewTaskActivity : AppCompatActivity() {
 
+    private lateinit var taskIntent: Intent
+    private var datePickerFragment: DatePickerFragment? = null
+    private var timePickerFragment: TimePickerFragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_task)
+
+        taskIntent = Intent()
 
         toolbarNewTask.setTitleTextColor(getToolbarTitleColor(this))
         toolbarNewTask.setTitle(R.string.new_task_title)
@@ -53,8 +63,8 @@ class NewTaskActivity : AppCompatActivity() {
                 if (it.length() == 0) {
                     it.setText(" ")
                 }
-                val datePickerFragment = DatePickerFragment()
-                datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
+                datePickerFragment = DatePickerFragment()
+                datePickerFragment?.show(supportFragmentManager, "DatePickerFragment")
             }
         }
 
@@ -63,14 +73,22 @@ class NewTaskActivity : AppCompatActivity() {
                 if (it.length() == 0) {
                     it.setText(" ")
                 }
-                val timePickerFragment = TimePickerFragment()
-                timePickerFragment.show(supportFragmentManager, "TimePickerFragment")
+                timePickerFragment = TimePickerFragment()
+                timePickerFragment?.show(supportFragmentManager, "TimePickerFragment")
             }
         }
 
-        buttonOk.setOnClickListener { }
+        buttonOk.setOnClickListener {
+
+            taskIntent.putExtra(DateTimeConstants.DATE_TIME,
+                getDateTime(datePickerFragment?.onDateGet(), timePickerFragment?.onTimeGet()))
+
+            setResult(Activity.RESULT_OK, taskIntent)
+            finish()
+        }
         buttonCancel.setOnClickListener {
-            onBackPressed()
+            setResult(Activity.RESULT_CANCELED)
+            finish()
         }
     }
 }

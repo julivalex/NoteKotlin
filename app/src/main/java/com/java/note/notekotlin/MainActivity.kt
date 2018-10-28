@@ -1,5 +1,6 @@
 package com.java.note.notekotlin
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,9 +12,7 @@ import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
 import com.java.note.notekotlin.fragment.SplashFragment
 import com.java.note.notekotlin.newtask.NewTaskActivity
-import com.java.note.notekotlin.utils.AppPreferences
-import com.java.note.notekotlin.utils.getColorResource
-import com.java.note.notekotlin.utils.getToolbarTitleColor
+import com.java.note.notekotlin.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -91,7 +90,20 @@ class MainActivity : AppCompatActivity() {
         })
 
         fab.setOnClickListener {
-            startActivity(Intent(this, NewTaskActivity::class.java))
+            val intent = Intent(this, NewTaskActivity::class.java)
+            startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (resultCode) {
+            Activity.RESULT_OK -> when (requestCode) {
+                1 -> {
+                    val date = data?.getStringExtra(DateTimeConstants.DATE_TIME)
+                    toast(this, date)
+                }
+            }
+            Activity.RESULT_CANCELED -> toast(this, "Result Cancel")
         }
     }
 }

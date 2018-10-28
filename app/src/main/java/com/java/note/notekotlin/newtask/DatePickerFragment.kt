@@ -16,7 +16,7 @@ import java.util.*
 open class DatePickerFragment : DialogFragment(),
     DatePickerDialog.OnDateSetListener {
 
-    lateinit var calendar: Calendar
+    private lateinit var calendar: Calendar
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         calendar = Calendar.getInstance()
@@ -37,4 +37,7 @@ open class DatePickerFragment : DialogFragment(),
     override fun onCancel(dialog: DialogInterface?) {
         tilTaskDate.editTaskDate.text = null
     }
+
+    fun onDateGet() = getDate(calendar.timeInMillis)
+
 }
