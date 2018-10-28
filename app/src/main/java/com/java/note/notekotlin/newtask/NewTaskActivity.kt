@@ -10,6 +10,7 @@ import android.widget.EditText
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.DateTimeConstants
+import com.java.note.notekotlin.utils.ModelTaskConstants
 import com.java.note.notekotlin.utils.getDateTime
 
 import com.java.note.notekotlin.utils.getToolbarTitleColor
@@ -90,7 +91,7 @@ class NewTaskActivity : AppCompatActivity() {
                 task.date = dateTime
             }
 
-            taskIntent.putExtra(DateTimeConstants.DATE_TIME, dateTime)
+            taskIntent.putExtra(ModelTaskConstants.TASK, task)
             setResult(Activity.RESULT_OK, taskIntent)
             finish()
         }

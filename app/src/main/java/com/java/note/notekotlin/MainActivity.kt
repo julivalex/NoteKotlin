@@ -11,6 +11,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
 import com.java.note.notekotlin.fragment.SplashFragment
+import com.java.note.notekotlin.model.Item
+import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.newtask.NewTaskActivity
 import com.java.note.notekotlin.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -99,8 +101,9 @@ class MainActivity : AppCompatActivity() {
         when (resultCode) {
             Activity.RESULT_OK -> when (requestCode) {
                 1 -> {
-                    val date = data?.getStringExtra(DateTimeConstants.DATE_TIME)
-                    toast(this, date)
+                    if(data != null) {
+                        val date: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
+                    }
                 }
             }
             Activity.RESULT_CANCELED -> toast(this, "Result Cancel")

@@ -10,3 +10,7 @@ object DateTimeConstants {
     const val TIME = "time"
     const val DATE_TIME = "dateTime"
 }
+
+object ModelTaskConstants {
+    const val TASK = "ModelTask"
+}

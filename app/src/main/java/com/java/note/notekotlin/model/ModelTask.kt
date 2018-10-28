@@ -1,6 +1,10 @@
 package com.java.note.notekotlin.model
 
-class ModelTask(var title: String, var date: String) : Item {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+class ModelTask(var title: String, var date: String) : Item, Parcelable {
 
     constructor() : this("", "")
 
