@@ -13,10 +13,5 @@ fun getTime(time: Long): String {
     return timeFormat.format(time)
 }
 
-fun getDateTime(date: String?, time: String?): String {
-    return when {
-        date == null -> "$time"
-        time == null -> "$date"
-        else -> "$date - $time"
-    }
-}
+fun getDateTime(date: String?, time: String?) =
+    "${date ?: ""} ${time ?: ""}"

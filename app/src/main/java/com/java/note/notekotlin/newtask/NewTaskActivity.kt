@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import com.java.note.notekotlin.R
+import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.DateTimeConstants
 import com.java.note.notekotlin.utils.getDateTime
 
@@ -34,6 +35,8 @@ class NewTaskActivity : AppCompatActivity() {
         tilTaskTitle.hint = getString(R.string.task_title)
         tilTaskDate.hint = getString(R.string.task_date)
         tilTaskTime.hint = getString(R.string.task_time)
+
+        val task = ModelTask()
 
         if (editTaskTitle.length() == 0) {
             buttonOk.isEnabled = false
@@ -80,9 +83,14 @@ class NewTaskActivity : AppCompatActivity() {
 
         buttonOk.setOnClickListener {
 
-            taskIntent.putExtra(DateTimeConstants.DATE_TIME,
-                getDateTime(datePickerFragment?.onDateGet(), timePickerFragment?.onTimeGet()))
+            val dateTime = getDateTime(datePickerFragment?.onDateGet(), timePickerFragment?.onTimeGet())
 
+            task.title = editTaskTitle.text.toString()
+            if(editTaskDate.length() != 0 || editTaskTime.length() != 0) {
+                task.date = dateTime
+            }
+
+            taskIntent.putExtra(DateTimeConstants.DATE_TIME, dateTime)
             setResult(Activity.RESULT_OK, taskIntent)
             finish()
         }
