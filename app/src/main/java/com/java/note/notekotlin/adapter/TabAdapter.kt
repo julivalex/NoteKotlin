@@ -12,11 +12,6 @@ class TabAdapter(fragmentManager: FragmentManager, private val countTabs: Int) :
     var currentTaskFragment: CurrentTaskFragment = CurrentTaskFragment()
     var doneTaskFragment: DoneTaskFragment = DoneTaskFragment()
 
-    companion object {
-        const val CURRENT_TASK_FRAGMENT_POSITION = 0
-        const val DONE_TASK_FRAGMENT_POSITION = 1
-    }
-
     override fun getItem(item: Int) = when (item) {
         0 -> currentTaskFragment
         1 -> doneTaskFragment

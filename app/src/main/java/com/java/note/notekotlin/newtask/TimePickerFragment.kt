@@ -2,7 +2,6 @@ package com.java.note.notekotlin.newtask
 
 import android.app.Dialog
 import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
@@ -10,8 +9,6 @@ import android.widget.EditText
 import android.widget.TimePicker
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.utils.getTime
-import kotlinx.android.synthetic.main.activity_new_task.*
-import kotlinx.android.synthetic.main.activity_new_task.view.*
 import java.util.*
 
 class TimePickerFragment : DialogFragment(),

@@ -85,11 +85,11 @@ class NewTaskActivity : AppCompatActivity() {
                 combineCalendars(datePickerFragment?.getDateCalendar(), timePickerFragment?.getTimeCalendar())
 
             task.title = editTaskTitle.text.toString()
-            if (editTaskDate.length() != 0 || editTaskTime.length() != 0 ) {
+            if (editTaskDate.length() != 0 || editTaskTime.length() != 0) {
                 task.date = dateTime
             }
 
-            taskIntent.putExtra(ModelTaskConstants.TASK, task)
+            taskIntent.putExtra(ModelTaskConst.TASK, task)
             setResult(Activity.RESULT_OK, taskIntent)
             finish()
         }

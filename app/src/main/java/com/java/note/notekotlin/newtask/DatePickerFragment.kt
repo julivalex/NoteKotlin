@@ -2,15 +2,12 @@ package com.java.note.notekotlin.newtask
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.widget.DatePicker
 import android.widget.EditText
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.utils.getDate
-import kotlinx.android.synthetic.main.activity_new_task.*
-import kotlinx.android.synthetic.main.activity_new_task.view.*
 import java.util.*
 
 open class DatePickerFragment : DialogFragment(),

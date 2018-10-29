@@ -6,16 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
-import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
-import com.java.note.notekotlin.adapter.TabAdapter.Companion.CURRENT_TASK_FRAGMENT_POSITION
-import com.java.note.notekotlin.adapter.TabAdapter.Companion.DONE_TASK_FRAGMENT_POSITION
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
 import com.java.note.notekotlin.fragment.SplashFragment
-import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.newtask.NewTaskActivity
 import com.java.note.notekotlin.utils.*
@@ -103,12 +99,12 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK)
         }
 
-        val currentTask = tabAdapter.getItem(CURRENT_TASK_FRAGMENT_POSITION)
+        val currentTask = tabAdapter.getItem(TabAdapterConst.CURRENT_TASK_FRAGMENT_POSITION)
         if (currentTask is CurrentTaskFragment) {
             currentTaskFragment = currentTask
         }
 
-        val doneTask = tabAdapter.getItem(DONE_TASK_FRAGMENT_POSITION)
+        val doneTask = tabAdapter.getItem(TabAdapterConst.DONE_TASK_FRAGMENT_POSITION)
         if (doneTask is DoneTaskFragment) {
             doneTaskFragment = doneTask
         }
@@ -126,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onTaskAdded(data: Intent?) {
         if (data != null) {
-            val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
+            val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConst.TASK)
             tabAdapter.currentTaskFragment.addTask(modelTask)
         }
     }
