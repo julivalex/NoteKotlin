@@ -99,17 +99,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (resultCode) {
-            Activity.RESULT_OK -> when (requestCode) {
-                1 -> {
-                    if (data != null) {
-                        val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
-                        if (modelTask.date != 0L) {
-                            toast(this, getDateTime(modelTask.date))
-                        }
-                    }
-                }
+            Activity.RESULT_OK -> if (requestCode == 1) {
+                onTaskAdded(data)
             }
-            Activity.RESULT_CANCELED -> toast(this, "Result Cancel")
+            Activity.RESULT_CANCELED -> onTaskCancel()
         }
+    }
+
+    private fun onTaskAdded(data: Intent?) {
+        if (data != null) {
+            val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
+            if (modelTask.date != 0L) {
+                toast(this, getDateTime(modelTask.date))
+            }
+        }
+    }
+
+    private fun onTaskCancel() {
+        toast(this, "Result Cancel")
     }
 }
