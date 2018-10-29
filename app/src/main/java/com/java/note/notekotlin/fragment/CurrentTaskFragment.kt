@@ -31,7 +31,7 @@ class CurrentTaskFragment : Fragment() {
 
     fun addTask(newTask: ModelTask) {
         var position = -1
-        val i = 0
+        var i = 0
         while (i < adapter.itemCount) {
             if (adapter.getItem(i).isTask()) {
                 val oldTask = adapter.getItem(i)
@@ -40,6 +40,7 @@ class CurrentTaskFragment : Fragment() {
                     break
                 }
             }
+            i++
         }
 
         if (position != -1) {
