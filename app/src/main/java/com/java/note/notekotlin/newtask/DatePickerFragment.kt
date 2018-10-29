@@ -30,7 +30,7 @@ open class DatePickerFragment : DialogFragment(),
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         calendar.set(year, month, day)
 
-        val editDate = activity?.findViewById<EditText>(R.id.editTaskDate)
+        val editDate: EditText? = activity?.findViewById(R.id.editTaskDate)
         editDate?.setText(getDate(calendar.timeInMillis))
     }
 

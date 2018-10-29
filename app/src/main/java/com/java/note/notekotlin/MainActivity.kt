@@ -10,6 +10,10 @@ import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
+import com.java.note.notekotlin.adapter.TabAdapter.Companion.CURRENT_TASK_FRAGMENT_POSITION
+import com.java.note.notekotlin.adapter.TabAdapter.Companion.DONE_TASK_FRAGMENT_POSITION
+import com.java.note.notekotlin.fragment.CurrentTaskFragment
+import com.java.note.notekotlin.fragment.DoneTaskFragment
 import com.java.note.notekotlin.fragment.SplashFragment
 import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelTask
@@ -20,6 +24,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var fragmentManager: FragmentManager
+    private lateinit var tabAdapter: TabAdapter
+    private lateinit var currentTaskFragment: CurrentTaskFragment
+    private lateinit var doneTaskFragment: DoneTaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.current_task))
         tabLayout.addTab(tabLayout.newTab().setText(R.string.done_task))
 
-        val tabAdapter = TabAdapter(fragmentManager, 2)
+        tabAdapter = TabAdapter(fragmentManager, 2)
         viewPager.adapter = tabAdapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
@@ -95,6 +102,17 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, NewTaskActivity::class.java)
             startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK)
         }
+
+        val currentTask = tabAdapter.getItem(CURRENT_TASK_FRAGMENT_POSITION)
+        if (currentTask is CurrentTaskFragment) {
+            currentTaskFragment = currentTask
+        }
+
+        val doneTask = tabAdapter.getItem(DONE_TASK_FRAGMENT_POSITION)
+        if (doneTask is DoneTaskFragment) {
+            doneTaskFragment = doneTask
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -109,9 +127,7 @@ class MainActivity : AppCompatActivity() {
     private fun onTaskAdded(data: Intent?) {
         if (data != null) {
             val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
-            if (modelTask.date != 0L) {
-                toast(this, getDateTime(modelTask.date))
-            }
+            tabAdapter.currentTaskFragment.addTask(modelTask)
         }
     }
 

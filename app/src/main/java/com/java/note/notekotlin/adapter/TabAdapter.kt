@@ -6,16 +6,22 @@ import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
 import java.lang.NumberFormatException
 
-
 class TabAdapter(fragmentManager: FragmentManager, private val countTabs: Int) :
     FragmentStatePagerAdapter(fragmentManager) {
 
-    override fun getItem(item: Int) = when (item) {
-        0 -> CurrentTaskFragment()
-        1 -> DoneTaskFragment()
-        else -> throw NumberFormatException("Wrong fragment")
+    var currentTaskFragment: CurrentTaskFragment = CurrentTaskFragment()
+    var doneTaskFragment: DoneTaskFragment = DoneTaskFragment()
+
+    companion object {
+        const val CURRENT_TASK_FRAGMENT_POSITION = 0
+        const val DONE_TASK_FRAGMENT_POSITION = 1
     }
 
+    override fun getItem(item: Int) = when (item) {
+        0 -> currentTaskFragment
+        1 -> doneTaskFragment
+        else -> throw NumberFormatException("Wrong fragment")
+    }
 
     override fun getCount(): Int {
         return countTabs
