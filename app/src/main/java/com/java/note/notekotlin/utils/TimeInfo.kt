@@ -20,6 +20,7 @@ fun getDateTime(time: Long): String {
 
 fun combineCalendars(calendarDate: Calendar?, calendarTime: Calendar?) =
     Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, get(Calendar.HOUR_OF_DAY) + 1)
         if (calendarDate != null) {
             set(Calendar.YEAR, calendarDate.get(Calendar.YEAR))
             set(Calendar.MONTH, calendarDate.get(Calendar.MONTH))

@@ -34,10 +34,6 @@ open class DatePickerFragment : DialogFragment(),
         editDate?.setText(getDate(calendar.timeInMillis))
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
-        tilTaskDate.editTaskDate.text = null
-    }
-
     fun getDateCalendar() = calendar
 
 }

@@ -38,9 +38,5 @@ class TimePickerFragment : DialogFragment(),
 
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
-        tilTaskTime.editTaskTime.text = null
-    }
-
     fun getTimeCalendar() = calendar
 }

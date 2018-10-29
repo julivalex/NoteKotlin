@@ -101,9 +101,11 @@ class MainActivity : AppCompatActivity() {
         when (resultCode) {
             Activity.RESULT_OK -> when (requestCode) {
                 1 -> {
-                    if(data != null) {
+                    if (data != null) {
                         val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
-                        toast(this, getDateTime(modelTask.date))
+                        if (modelTask.date != 0L) {
+                            toast(this, getDateTime(modelTask.date))
+                        }
                     }
                 }
             }
