@@ -38,6 +38,6 @@ open class DatePickerFragment : DialogFragment(),
         tilTaskDate.editTaskDate.text = null
     }
 
-    fun onDateGet() = getDate(calendar.timeInMillis)
+    fun getDateCalendar() = calendar
 
 }

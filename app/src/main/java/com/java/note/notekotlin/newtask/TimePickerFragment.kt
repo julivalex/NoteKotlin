@@ -9,7 +9,6 @@ import android.text.format.DateFormat
 import android.widget.EditText
 import android.widget.TimePicker
 import com.java.note.notekotlin.R
-import com.java.note.notekotlin.utils.getDate
 import com.java.note.notekotlin.utils.getTime
 import kotlinx.android.synthetic.main.activity_new_task.*
 import kotlinx.android.synthetic.main.activity_new_task.view.*
@@ -43,5 +42,5 @@ class TimePickerFragment : DialogFragment(),
         tilTaskTime.editTaskTime.text = null
     }
 
-    fun onTimeGet() = getTime(calendar.timeInMillis)
+    fun getTimeCalendar() = calendar
 }

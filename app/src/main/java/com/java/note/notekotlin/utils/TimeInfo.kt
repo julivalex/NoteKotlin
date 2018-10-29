@@ -13,5 +13,22 @@ fun getTime(time: Long): String {
     return timeFormat.format(time)
 }
 
-fun getDateTime(date: String?, time: String?) =
-    "${date ?: ""} ${time ?: ""}"
+fun getDateTime(time: Long): String {
+    val timeFormat = SimpleDateFormat("dd.MM.yy HH.mm", Locale.getDefault())
+    return timeFormat.format(time)
+}
+
+fun combineCalendars(calendarDate: Calendar?, calendarTime: Calendar?) =
+    Calendar.getInstance().apply {
+        if (calendarDate != null) {
+            set(Calendar.YEAR, calendarDate.get(Calendar.YEAR))
+            set(Calendar.MONTH, calendarDate.get(Calendar.MONTH))
+            set(Calendar.DAY_OF_MONTH, calendarDate.get(Calendar.DAY_OF_MONTH))
+        }
+        if (calendarTime != null) {
+            set(Calendar.HOUR_OF_DAY, calendarTime.get(Calendar.HOUR_OF_DAY))
+            set(Calendar.MINUTE, calendarTime.get(Calendar.MINUTE))
+        }
+    }.timeInMillis
+
+

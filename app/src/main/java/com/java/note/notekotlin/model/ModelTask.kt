@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class ModelTask(var title: String, var date: String) : Item, Parcelable {
+data class ModelTask(var title: String, var date: Long) : Item, Parcelable {
 
-    constructor() : this("", "")
+    constructor() : this("", 0)
 
     override fun isTask() = true
 }

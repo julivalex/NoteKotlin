@@ -102,7 +102,8 @@ class MainActivity : AppCompatActivity() {
             Activity.RESULT_OK -> when (requestCode) {
                 1 -> {
                     if(data != null) {
-                        val date: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
+                        val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConstants.TASK)
+                        toast(this, getDateTime(modelTask.date))
                     }
                 }
             }

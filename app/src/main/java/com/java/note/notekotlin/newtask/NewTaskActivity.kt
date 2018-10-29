@@ -9,11 +9,8 @@ import android.text.TextWatcher
 import android.widget.EditText
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.model.ModelTask
-import com.java.note.notekotlin.utils.DateTimeConstants
-import com.java.note.notekotlin.utils.ModelTaskConstants
-import com.java.note.notekotlin.utils.getDateTime
+import com.java.note.notekotlin.utils.*
 
-import com.java.note.notekotlin.utils.getToolbarTitleColor
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_new_task.*
 
@@ -84,10 +81,11 @@ class NewTaskActivity : AppCompatActivity() {
 
         buttonOk.setOnClickListener {
 
-            val dateTime = getDateTime(datePickerFragment?.onDateGet(), timePickerFragment?.onTimeGet())
+            val dateTime =
+                combineCalendars(datePickerFragment?.getDateCalendar(), timePickerFragment?.getTimeCalendar())
 
             task.title = editTaskTitle.text.toString()
-            if(editTaskDate.length() != 0 || editTaskTime.length() != 0) {
+            if (editTaskDate.length() != 0 || editTaskTime.length() != 0 ) {
                 task.date = dateTime
             }
 
@@ -95,6 +93,7 @@ class NewTaskActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, taskIntent)
             finish()
         }
+
         buttonCancel.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()
