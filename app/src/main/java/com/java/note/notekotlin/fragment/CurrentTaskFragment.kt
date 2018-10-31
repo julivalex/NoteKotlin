@@ -7,6 +7,7 @@ import com.java.note.notekotlin.R
 import android.view.View
 import android.view.ViewGroup
 import com.java.note.notekotlin.adapter.CurrentTaskAdapter
+import com.java.note.notekotlin.model.ModelTask
 
 class CurrentTaskFragment : TaskFragment() {
 
@@ -23,5 +24,8 @@ class CurrentTaskFragment : TaskFragment() {
         }
 
         return view
+    }
+
+    override fun moveTask(modelTask: ModelTask) {
     }
 }

@@ -31,4 +31,7 @@ abstract class TaskFragment : Fragment() {
             adapterRecycler.addItem(newTask)
         }
     }
+
+    abstract fun moveTask(modelTask: ModelTask)
+
 }

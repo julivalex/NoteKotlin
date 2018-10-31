@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import com.java.note.notekotlin.R
 import android.view.View
 import android.view.ViewGroup
+import com.java.note.notekotlin.model.ModelTask
 
 class DoneTaskFragment : TaskFragment() {
 
@@ -21,5 +22,8 @@ class DoneTaskFragment : TaskFragment() {
         //}
 
         return view
+    }
+
+    override fun moveTask(modelTask: ModelTask) {
     }
 }
