@@ -18,3 +18,15 @@ object TabAdapterConst {
     const val CURRENT_TASK_FRAGMENT_POSITION = 0
     const val DONE_TASK_FRAGMENT_POSITION = 1
 }
+
+object Priority {
+    const val PRIORITY_LOW = 0
+    const val PRIORITY_NORMAL = 1
+    const val PRIORITY_HIGH = 2
+
+    const val STATUS_OVERDUE = 0
+    const val STATUS_CURRENT = 1
+    const val STATUS_DONE = 2
+
+    val PRIORITY_LEVELS = arrayOf("Low Priority", "Normal Priority", "High Priority")
+}

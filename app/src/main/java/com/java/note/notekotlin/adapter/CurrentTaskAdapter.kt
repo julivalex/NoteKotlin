@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
+import com.java.note.notekotlin.model.ModelTask
+import com.java.note.notekotlin.utils.getDateTime
 import kotlinx.android.synthetic.main.model_task.view.*
 
 class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFragment) {
@@ -19,16 +21,29 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
 
         return when (viewType) {
             TYPE_TASK -> {
-                ViewHolder(view, view.tvTaskTitle, view.tvTaskDate)
+                ViewHolder(view, view.tvTaskTitle, view.tvTaskDate, view.cvTaskPriority)
             }
             else -> {
-                ViewHolder(view, view.tvTaskTitle, view.tvTaskDate)
+                ViewHolder(view, view.tvTaskTitle, view.tvTaskDate, view.cvTaskPriority)
             }
         }
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.onBind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val modelTask = getItem(position)
+        val itemView = holder.view
+        val resources = holder.view.resources
+
+        if (modelTask is ModelTask && modelTask.isTask()) {
+            itemView.isEnabled = true
+            holder.title.text = modelTask.title
+
+            if (modelTask.date != 0L) {
+                holder.date.text = getDateTime(modelTask.date)
+            } else {
+                holder.date.text = null
+            }
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -38,4 +53,5 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
             TYPE_SEPARATOR
         }
     }
+
 }

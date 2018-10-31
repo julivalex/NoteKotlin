@@ -5,8 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.java.note.notekotlin.fragment.TaskFragment
 import com.java.note.notekotlin.model.Item
-import com.java.note.notekotlin.model.ModelTask
-import com.java.note.notekotlin.utils.getDateTime
+import de.hdodenhof.circleimageview.CircleImageView
 
 abstract class TaskAdapter(val taskFragment: TaskFragment) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
@@ -33,17 +32,10 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) : RecyclerView.Adapte
 
     override fun getItemCount() = items.size
 
-    open class ViewHolder(val view: View, private val holderTitle: TextView, private val holderDate: TextView) :
-        RecyclerView.ViewHolder(view) {
-
-        fun onBind(modelTask: Item) {
-            if (modelTask.isTask() && modelTask is ModelTask) {
-                view.isEnabled = true
-                holderTitle.text = modelTask.title
-                if (modelTask.date != 0L) {
-                    holderDate.text = getDateTime(modelTask.date)
-                }
-            }
-        }
-    }
+    open class ViewHolder(
+        val view: View,
+        val title: TextView,
+        val date: TextView,
+        val priority: CircleImageView
+    ) : RecyclerView.ViewHolder(view)
 }

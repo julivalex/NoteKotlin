@@ -105,6 +105,13 @@
                     android:layout_marginEnd="16dp"
                     android:layout_alignParentEnd="true"/>
 
+            <Spinner
+                    android:id="@+id/spinnerPriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buttonCancel"
+                    android:layout_margin="16dp"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

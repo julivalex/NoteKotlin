@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.model.ModelTask
@@ -35,6 +38,17 @@ class NewTaskActivity : AppCompatActivity() {
         tilTaskTime.hint = getString(R.string.task_time)
 
         val task = ModelTask()
+
+        spinnerPriority.adapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Priority.PRIORITY_LEVELS)
+        spinnerPriority.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                task.priority = position
+            }
+        }
 
         if (editTaskTitle.length() == 0) {
             buttonOk.isEnabled = false
