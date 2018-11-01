@@ -1,6 +1,5 @@
 package com.java.note.notekotlin.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.java.note.notekotlin.adapter.DoneTaskAdapter
 import com.java.note.notekotlin.model.ModelTask
-import java.lang.ClassCastException
 
 class DoneTaskFragment : TaskFragment() {
 
@@ -17,17 +15,6 @@ class DoneTaskFragment : TaskFragment() {
 
     interface OnTaskRestoreListener {
         fun onTaskRestore(task: ModelTask)
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is OnTaskRestoreListener) {
-            try {
-                onTaskRestoreListener = context
-            } catch (e: ClassCastException) {
-                throw ClassCastException(context.toString() + " must implement OnTaskRestoreListener")
-            }
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,6 +27,10 @@ class DoneTaskFragment : TaskFragment() {
         recyclerView.apply {
             layoutManager = layoutManagerRecycler
             adapter = adapterRecycler
+        }
+
+        if(view.context is OnTaskRestoreListener) {
+            onTaskRestoreListener = view.context as OnTaskRestoreListener
         }
 
         return view
