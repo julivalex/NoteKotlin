@@ -12,17 +12,19 @@ import com.java.note.notekotlin.adapter.TabAdapter
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
 import com.java.note.notekotlin.fragment.SplashFragment
+import com.java.note.notekotlin.fragment.TaskFragment
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.newtask.NewTaskActivity
 import com.java.note.notekotlin.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener,
+    DoneTaskFragment.OnTaskRestoreListener {
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var tabAdapter: TabAdapter
-    private lateinit var currentTaskFragment: CurrentTaskFragment
-    private lateinit var doneTaskFragment: DoneTaskFragment
+    private lateinit var currentTaskFragment: TaskFragment
+    private lateinit var doneTaskFragment: TaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,4 +132,13 @@ class MainActivity : AppCompatActivity() {
     private fun onTaskCancel() {
         toast(this, "Result Cancel")
     }
+
+    override fun onTaskDone(task: ModelTask) {
+        doneTaskFragment.addTask(task)
+    }
+
+    override fun onTaskRestore(task: ModelTask) {
+        currentTaskFragment.addTask(task)
+    }
+
 }

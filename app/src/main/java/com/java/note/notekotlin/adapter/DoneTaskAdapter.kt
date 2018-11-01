@@ -62,7 +62,7 @@ class DoneTaskAdapter(taskFragment: DoneTaskFragment) : TaskAdapter(taskFragment
                     }
 
                     override fun onAnimationEnd(animator: Animator?) {
-                        if (modelTask.status == Status.STATUS_CURRENT) {
+                        if (modelTask.status != Status.STATUS_DONE) {
 
                             val translationX: ObjectAnimator =
                                 ObjectAnimator.ofFloat(itemView, "translationX", 0f, -itemView.width.toFloat())
