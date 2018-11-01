@@ -40,6 +40,6 @@ data class ModelTask(var title: String, var date: Long, var priority: Int, var s
             else -> 0
         }
 
-    private fun isStatusCurrentOrOverdue() = status == Status.STATUS_CURRENT ||
+    private fun isStatusCurrentOrOverdue(): Boolean = status == Status.STATUS_CURRENT ||
             status == Status.STATUS_OVERDUE
 }

@@ -4,14 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.extensions.onChange
+import com.java.note.notekotlin.extensions.setItemSelected
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.*
 
@@ -42,13 +39,9 @@ class NewTaskActivity : AppCompatActivity() {
 
         spinnerPriority.adapter =
                 ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Priority.PRIORITY_LEVELS)
-        spinnerPriority.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                task.priority = position
-            }
+        spinnerPriority.setItemSelected {
+            task.priority = it
         }
 
         if (editTaskTitle.length() == 0) {
@@ -87,8 +80,7 @@ class NewTaskActivity : AppCompatActivity() {
         }
 
         buttonOk.setOnClickListener {
-
-            val dateTime =
+            val dateTime: Long =
                 combineCalendars(datePickerFragment?.getDateCalendar(), timePickerFragment?.getTimeCalendar())
 
             task.title = editTaskTitle.text.toString()

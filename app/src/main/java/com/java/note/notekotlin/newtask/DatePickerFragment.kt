@@ -17,9 +17,9 @@ open class DatePickerFragment : DialogFragment(),
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val year: Int = calendar.get(Calendar.YEAR)
+        val month: Int = calendar.get(Calendar.MONTH)
+        val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
         return DatePickerDialog(context!!, this, year, month, day)
     }
@@ -31,6 +31,6 @@ open class DatePickerFragment : DialogFragment(),
         editDate?.setText(getDate(calendar.timeInMillis))
     }
 
-    fun getDateCalendar() = calendar
+    fun getDateCalendar(): Calendar = calendar
 
 }

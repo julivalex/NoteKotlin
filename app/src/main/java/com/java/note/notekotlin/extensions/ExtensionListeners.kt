@@ -5,7 +5,10 @@ import android.animation.ObjectAnimator
 import android.support.design.widget.TabLayout
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.Spinner
 
 fun EditText.onChange(check: (CharSequence) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -52,4 +55,15 @@ fun ObjectAnimator.setAnimationEnd(doAfterEnd: () -> Unit) {
         override fun onAnimationStart(animator: Animator?) {
         }
     })
+}
+
+fun Spinner.setItemSelected(setPriority: (Int) -> Unit) {
+    this.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            setPriority(position)
+        }
+    }
 }

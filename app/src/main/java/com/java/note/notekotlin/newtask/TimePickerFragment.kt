@@ -18,8 +18,8 @@ class TimePickerFragment : DialogFragment(),
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         calendar = Calendar.getInstance()
-        val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
+        val hourOfDay: Int = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute: Int = calendar.get(Calendar.MINUTE)
 
         return TimePickerDialog(
             context, this,
@@ -30,9 +30,8 @@ class TimePickerFragment : DialogFragment(),
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
         calendar.set(0, 0, 0, hourOfDay, minute)
 
-        val editTime = activity?.findViewById<EditText>(R.id.editTaskTime)
+        val editTime: EditText? = activity?.findViewById(R.id.editTaskTime)
         editTime?.setText(getTime(calendar.timeInMillis))
-
     }
 
     fun getTimeCalendar() = calendar
