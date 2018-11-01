@@ -3,6 +3,7 @@ package com.java.note.notekotlin.model
 import android.os.Parcelable
 import com.java.note.notekotlin.R
 import com.java.note.notekotlin.utils.Priority
+import com.java.note.notekotlin.utils.Status
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -39,6 +40,6 @@ data class ModelTask(var title: String, var date: Long, var priority: Int, var s
             else -> 0
         }
 
-    private fun isStatusCurrentOrOverdue() = status == Priority.STATUS_CURRENT ||
-            status == Priority.STATUS_OVERDUE
+    private fun isStatusCurrentOrOverdue() = status == Status.STATUS_CURRENT ||
+            status == Status.STATUS_OVERDUE
 }

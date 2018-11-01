@@ -73,6 +73,16 @@ class NewTaskActivity : AppCompatActivity() {
             }
         })
 
+//        editTaskTitle.onChange {
+//            if (it.isEmpty()) {
+//                buttonOk.isEnabled = false
+//                tilTaskTitle.error = getString(R.string.dialog_error_empty_title)
+//            } else {
+//                buttonOk.isEnabled = true
+//                tilTaskTitle.isErrorEnabled = false
+//            }
+//        }
+
         editTaskDate.setOnClickListener {
             if (it is EditText) {
                 if (it.length() == 0) {
@@ -99,6 +109,7 @@ class NewTaskActivity : AppCompatActivity() {
                 combineCalendars(datePickerFragment?.getDateCalendar(), timePickerFragment?.getTimeCalendar())
 
             task.title = editTaskTitle.text.toString()
+            task.status = Status.STATUS_CURRENT
             if (editTaskDate.length() != 0 || editTaskTime.length() != 0) {
                 task.date = dateTime
             }

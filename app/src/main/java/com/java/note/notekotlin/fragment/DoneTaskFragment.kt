@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import com.java.note.notekotlin.R
 import android.view.View
 import android.view.ViewGroup
+import com.java.note.notekotlin.adapter.DoneTaskAdapter
 import com.java.note.notekotlin.model.ModelTask
 
 class DoneTaskFragment : TaskFragment() {
@@ -14,12 +15,13 @@ class DoneTaskFragment : TaskFragment() {
 
         val view = inflater.inflate(R.layout.fragment_done_task, container, false)
         layoutManagerRecycler = LinearLayoutManager(activity)
-        //adapterRecycler = DoneTaskAdapter(this)
+        adapterRecycler = DoneTaskAdapter(this)
 
-        //recyclerView.apply {
-            //layoutManager = layoutManagerRecycler
-            //adapter = adapterRecycler
-        //}
+        recyclerView = view.findViewById(R.id.rvDoneTasks)
+        recyclerView.apply {
+            layoutManager = layoutManagerRecycler
+            adapter = adapterRecycler
+        }
 
         return view
     }
