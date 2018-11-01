@@ -1,5 +1,7 @@
 package com.java.note.notekotlin.extensions
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.support.design.widget.TabLayout
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,7 +19,6 @@ fun EditText.onChange(check: (CharSequence) -> Unit) {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             check(s)
         }
-
     })
 }
 
@@ -32,6 +33,23 @@ fun TabLayout.onTabSelect(setPosition: (TabLayout.Tab) -> Unit) {
 
         override fun onTabSelected(tab: TabLayout.Tab) {
             setPosition(tab)
+        }
+    })
+}
+
+fun ObjectAnimator.setAnimationEnd(doAfterEnd: () -> Unit) {
+    this.addListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animator: Animator?) {
+        }
+
+        override fun onAnimationEnd(animator: Animator?) {
+            doAfterEnd()
+        }
+
+        override fun onAnimationCancel(animator: Animator?) {
+        }
+
+        override fun onAnimationStart(animator: Animator?) {
         }
     })
 }

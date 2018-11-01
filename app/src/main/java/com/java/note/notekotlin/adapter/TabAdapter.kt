@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
+import com.java.note.notekotlin.fragment.TaskFragment
 import java.lang.NumberFormatException
 
 class TabAdapter(fragmentManager: FragmentManager, private val countTabs: Int) :
@@ -12,7 +13,7 @@ class TabAdapter(fragmentManager: FragmentManager, private val countTabs: Int) :
     var currentTaskFragment: CurrentTaskFragment = CurrentTaskFragment()
     var doneTaskFragment: DoneTaskFragment = DoneTaskFragment()
 
-    override fun getItem(item: Int) = when (item) {
+    override fun getItem(item: Int): TaskFragment = when (item) {
         0 -> currentTaskFragment
         1 -> doneTaskFragment
         else -> throw NumberFormatException("Wrong fragment")

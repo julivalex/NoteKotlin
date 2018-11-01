@@ -11,7 +11,7 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) : RecyclerView.Adapte
 
     val items: MutableList<Item> = ArrayList()
 
-    fun getItem(position: Int) = items[position]
+    fun getItem(position: Int): Item = items[position]
 
     fun addItem(item: Item) {
         items.add(item)
@@ -30,7 +30,7 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) : RecyclerView.Adapte
         }
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount(): Int = items.size
 
     open class ViewHolder(
         val view: View,
