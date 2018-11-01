@@ -1,5 +1,6 @@
 package com.java.note.notekotlin.extensions
 
+import android.support.design.widget.TabLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -17,5 +18,20 @@ fun EditText.onChange(check: (CharSequence) -> Unit) {
             check(s)
         }
 
+    })
+}
+
+fun TabLayout.onTabSelect(setPosition: (TabLayout.Tab) -> Unit) {
+    this.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+        override fun onTabReselected(tab: TabLayout.Tab) {
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab) {
+        }
+
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            setPosition(tab)
+        }
     })
 }

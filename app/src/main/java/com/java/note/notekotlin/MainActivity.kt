@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager
 import android.view.Menu
 import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
+import com.java.note.notekotlin.extensions.onTabSelect
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
 import com.java.note.notekotlin.fragment.SplashFragment
@@ -31,10 +32,8 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
         setContentView(R.layout.activity_main)
 
         AppPreferences.init(this)
-
         fragmentManager = supportFragmentManager
         runSplash()
-
         setUI()
     }
 
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
         menuInflater.inflate(R.menu.menu_main, menu)
         val splashItem = menu.findItem(R.id.menuActionSplash)
         splashItem?.isChecked = AppPreferences.firstRun
-
         return true
     }
 
@@ -51,17 +49,14 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
         if (id == R.id.menuActionSplash) {
             item.isChecked = !item.isChecked
             AppPreferences.firstRun = item.isChecked
-
             return true
         }
-
         return super.onOptionsItemSelected(item)
     }
 
     private fun runSplash() {
         //show or don't show splash screen
         if (!AppPreferences.firstRun) {
-
             val splashFragment = SplashFragment()
             fragmentManager
                 .beginTransaction()
@@ -83,18 +78,9 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
         viewPager.adapter = tabAdapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
-            }
-        })
+        tabLayout.onTabSelect {
+            viewPager.currentItem = it.position
+        }
 
         fab.setOnClickListener {
             val intent = Intent(this, NewTaskActivity::class.java)
@@ -103,7 +89,6 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
 
         val currentTask: TaskFragment = tabAdapter.getItem(TabAdapterConst.CURRENT_TASK_FRAGMENT_POSITION)
         currentTaskFragment = currentTask as? CurrentTaskFragment
-
 
         val doneTask: TaskFragment = tabAdapter.getItem(TabAdapterConst.DONE_TASK_FRAGMENT_POSITION)
         doneTaskFragment = doneTask as? DoneTaskFragment
