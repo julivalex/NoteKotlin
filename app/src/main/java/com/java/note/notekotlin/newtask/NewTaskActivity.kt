@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import com.java.note.notekotlin.R
+import com.java.note.notekotlin.extensions.onChange
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.*
 
@@ -55,33 +56,15 @@ class NewTaskActivity : AppCompatActivity() {
             tilTaskTitle.error = getString(R.string.dialog_error_empty_title)
         }
 
-        editTaskTitle.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable) {
+        editTaskTitle.onChange {
+            if (it.isEmpty()) {
+                buttonOk.isEnabled = false
+                tilTaskTitle.error = getString(R.string.dialog_error_empty_title)
+            } else {
+                buttonOk.isEnabled = true
+                tilTaskTitle.isErrorEnabled = false
             }
-
-            override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.isEmpty()) {
-                    buttonOk.isEnabled = false
-                    tilTaskTitle.error = getString(R.string.dialog_error_empty_title)
-                } else {
-                    buttonOk.isEnabled = true
-                    tilTaskTitle.isErrorEnabled = false
-                }
-            }
-        })
-
-//        editTaskTitle.onChange {
-//            if (it.isEmpty()) {
-//                buttonOk.isEnabled = false
-//                tilTaskTitle.error = getString(R.string.dialog_error_empty_title)
-//            } else {
-//                buttonOk.isEnabled = true
-//                tilTaskTitle.isErrorEnabled = false
-//            }
-//        }
+        }
 
         editTaskDate.setOnClickListener {
             if (it is EditText) {
