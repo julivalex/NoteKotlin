@@ -1,5 +1,6 @@
 package com.java.note.notekotlin.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import com.java.note.notekotlin.model.ModelTask
 
 class CurrentTaskFragment : TaskFragment() {
 
-    lateinit var onTaskDoneListener: OnTaskDoneListener
+    private var onTaskDoneListener: OnTaskDoneListener? = null
 
     interface OnTaskDoneListener {
         fun onTaskDone(task: ModelTask)
@@ -29,14 +30,13 @@ class CurrentTaskFragment : TaskFragment() {
             adapter = adapterRecycler
         }
 
-        if(view.context is OnTaskDoneListener) {
-            onTaskDoneListener = view.context as OnTaskDoneListener
-        }
+        val context: Context = view.context
+        onTaskDoneListener = context as? OnTaskDoneListener
 
         return view
     }
 
     override fun moveTask(modelTask: ModelTask) {
-        onTaskDoneListener.onTaskDone(task = modelTask)
+        onTaskDoneListener?.onTaskDone(task = modelTask)
     }
 }

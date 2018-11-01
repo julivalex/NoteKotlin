@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var tabAdapter: TabAdapter
-    private lateinit var currentTaskFragment: TaskFragment
-    private lateinit var doneTaskFragment: TaskFragment
+    private var currentTaskFragment: TaskFragment? = null
+    private var doneTaskFragment: TaskFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,15 +101,12 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
             startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK)
         }
 
-        val currentTask = tabAdapter.getItem(TabAdapterConst.CURRENT_TASK_FRAGMENT_POSITION)
-        if (currentTask is CurrentTaskFragment) {
-            currentTaskFragment = currentTask
-        }
+        val currentTask: TaskFragment = tabAdapter.getItem(TabAdapterConst.CURRENT_TASK_FRAGMENT_POSITION)
+        currentTaskFragment = currentTask as? CurrentTaskFragment
 
-        val doneTask = tabAdapter.getItem(TabAdapterConst.DONE_TASK_FRAGMENT_POSITION)
-        if (doneTask is DoneTaskFragment) {
-            doneTaskFragment = doneTask
-        }
+
+        val doneTask: TaskFragment = tabAdapter.getItem(TabAdapterConst.DONE_TASK_FRAGMENT_POSITION)
+        doneTaskFragment = doneTask as? DoneTaskFragment
 
     }
 
@@ -125,7 +122,7 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     private fun onTaskAdded(data: Intent?) {
         if (data != null) {
             val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConst.TASK)
-            tabAdapter.currentTaskFragment.addTask(modelTask)
+            currentTaskFragment?.addTask(modelTask)
         }
     }
 
@@ -134,11 +131,11 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     }
 
     override fun onTaskDone(task: ModelTask) {
-        doneTaskFragment.addTask(task)
+        doneTaskFragment?.addTask(task)
     }
 
     override fun onTaskRestore(task: ModelTask) {
-        currentTaskFragment.addTask(task)
+        currentTaskFragment?.addTask(task)
     }
 
 }
