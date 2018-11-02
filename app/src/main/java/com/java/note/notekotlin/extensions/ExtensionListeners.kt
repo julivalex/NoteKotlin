@@ -2,6 +2,7 @@ package com.java.note.notekotlin.extensions
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.text.Editable
 import android.text.TextWatcher
@@ -58,7 +59,7 @@ fun ObjectAnimator.setAnimationEnd(doAfterEnd: () -> Unit) {
 }
 
 fun Spinner.setItemSelected(setPriority: (Int) -> Unit) {
-    this.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(parent: AdapterView<*>?) {
         }
 
@@ -66,4 +67,15 @@ fun Spinner.setItemSelected(setPriority: (Int) -> Unit) {
             setPriority(position)
         }
     }
+}
+
+fun Snackbar.setViewDetachedFromWindow(removeTask: () -> Unit) {
+    this.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+        override fun onViewDetachedFromWindow(view: View) {
+            removeTask()
+        }
+
+        override fun onViewAttachedToWindow(view: View) {
+        }
+    })
 }

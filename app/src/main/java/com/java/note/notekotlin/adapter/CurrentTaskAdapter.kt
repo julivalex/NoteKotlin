@@ -58,6 +58,11 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
             holder.priority.setColorFilter(getColorResource(itemView.context, modelTask.getPriorityColor()))
             holder.priority.setImageResource(R.mipmap.ic_circle_white_48dp)
 
+            itemView.setOnLongClickListener {
+                taskFragment.removeTaskDialog(position)
+                return@setOnLongClickListener true
+            }
+
             holder.priority.setOnClickListener {
                 modelTask.status = Status.STATUS_DONE
                 taskFragment.mainActivity.dbHelper.updateManager.updateStatus(modelTask.timestamp, modelTask.status)

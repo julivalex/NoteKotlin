@@ -1,10 +1,14 @@
 package com.java.note.notekotlin.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import com.java.note.notekotlin.MainActivity
+import com.java.note.notekotlin.R
 import com.java.note.notekotlin.adapter.TaskAdapter
+import com.java.note.notekotlin.extensions.setViewDetachedFromWindow
 import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelTask
 
@@ -14,6 +18,8 @@ abstract class TaskFragment : Fragment() {
     protected lateinit var adapterRecycler: TaskAdapter
     protected lateinit var recyclerView: RecyclerView
     lateinit var mainActivity: MainActivity
+
+    private var isRemoved: Boolean = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -47,6 +53,48 @@ abstract class TaskFragment : Fragment() {
 
         if (saveToDb)
             mainActivity.dbHelper.saveTask(newTask)
+    }
+
+    fun removeTaskDialog(position: Int) {
+        val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        dialogBuilder.setMessage(R.string.dialog_removing_message)
+
+        val removingTask: Item = adapterRecycler.getItem(position)
+
+        if (removingTask is ModelTask && removingTask.isTask()) {
+
+            val timestamp: Long = removingTask.timestamp
+            isRemoved = false
+
+            dialogBuilder.setPositiveButton(R.string.dialog_ok) { dialog, _ ->
+                adapterRecycler.remoteItem(position)
+                isRemoved = true
+
+                val snackbar: Snackbar =
+                    Snackbar.make(mainActivity.findViewById(R.id.coordinator), R.string.removed, Snackbar.LENGTH_LONG)
+
+                snackbar.setAction(R.string.dialog_cancel) {
+                    addTask(mainActivity.dbHelper.queryManager.getTask(timestamp), false)
+                    isRemoved = false
+                }
+
+                snackbar.setViewDetachedFromWindow {
+                    if (isRemoved) {
+                        mainActivity.dbHelper.removeTask(timestamp)
+                    }
+                }
+
+                snackbar.show()
+
+                dialog.dismiss()
+            }
+
+            dialogBuilder.setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+        }
+
+        dialogBuilder.show()
     }
 
     abstract fun addTaskFromDb()

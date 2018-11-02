@@ -58,4 +58,5 @@ object Database {
 
 object Selection {
     const val STATUS: String = "${Database.Column.TASK_STATUS} = ?"
+    const val TIME_STAMP: String = "${Database.Column.TASK_TIME_STAMP} = ?"
 }

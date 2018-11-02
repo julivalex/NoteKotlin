@@ -4,8 +4,30 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.Database
+import com.java.note.notekotlin.utils.Selection
 
-class DbQueryManager(val db: SQLiteDatabase) {
+class DbQueryManager(private val db: SQLiteDatabase) {
+
+    fun getTask(timestamp: Long): ModelTask {
+
+        val cursor: Cursor =
+            db.query(
+                Database.TASKS_TABLE, null, Selection.TIME_STAMP,
+                arrayOf(timestamp.toString()), null, null, null
+            )
+
+        if (cursor.moveToFirst()) {
+            val title: String = cursor.getString(cursor.getColumnIndex(Database.Column.TASK_TITLE))
+            val date: Long = cursor.getLong(cursor.getColumnIndex(Database.Column.TASK_DATE))
+            val priority: Int = cursor.getInt(cursor.getColumnIndex(Database.Column.TASK_PRIORITY))
+            val status: Int = cursor.getInt(cursor.getColumnIndex(Database.Column.TASK_STATUS))
+
+            return ModelTask(title, date, priority, status, timestamp)
+        }
+        cursor.close()
+
+        return ModelTask()
+    }
 
     fun getTasks(
         selection: String, selectionArgs: Array<String>, orderBy: String
