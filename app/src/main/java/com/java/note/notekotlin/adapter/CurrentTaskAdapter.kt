@@ -60,6 +60,7 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
 
             holder.priority.setOnClickListener {
                 modelTask.status = Status.STATUS_DONE
+                taskFragment.mainActivity.dbHelper.updateManager.updateStatus(modelTask.timestamp, modelTask.status)
 
                 itemView.setBackgroundColor(getColorResource(itemView.context, R.color.gray_200))
 

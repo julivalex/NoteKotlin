@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.java.note.notekotlin.adapter.DoneTaskAdapter
 import com.java.note.notekotlin.model.ModelTask
+import com.java.note.notekotlin.utils.Database
+import com.java.note.notekotlin.utils.Selection
+import com.java.note.notekotlin.utils.Status
 
 class DoneTaskFragment : TaskFragment() {
 
@@ -38,5 +41,15 @@ class DoneTaskFragment : TaskFragment() {
 
     override fun moveTask(modelTask: ModelTask) {
         onTaskRestoreListener?.onTaskRestore(task = modelTask)
+    }
+
+    override fun addTaskFromDb() {
+        val tasks: MutableList<ModelTask> = ArrayList()
+        tasks.addAll(mainActivity.dbHelper.queryManager
+            .getTasks(Selection.STATUS, arrayOf(Status.STATUS_DONE.toString()), Database.Column.TASK_DATE))
+
+        for (task: ModelTask in tasks) {
+            addTask(task, false)
+        }
     }
 }

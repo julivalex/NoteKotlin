@@ -5,13 +5,17 @@ import com.java.note.notekotlin.R
 import com.java.note.notekotlin.utils.Priority
 import com.java.note.notekotlin.utils.Status
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
-data class ModelTask(var title: String, var date: Long, var priority: Int, var status: Int) : Item, Parcelable {
+data class ModelTask(
+    var title: String, var date: Long,
+    var priority: Int, var status: Int, var timestamp: Long
+) : Item, Parcelable {
 
-    constructor() : this("", 0L, 0, -1)
+    constructor() : this("", 0L, 0, -1, Date().time)
 
-    override fun isTask() = true
+    override fun isTask(): Boolean = true
 
     fun getPriorityColor() =
         when (priority) {

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager
 import android.view.Menu
 import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
+import com.java.note.notekotlin.database.DbHelper
 import com.java.note.notekotlin.extensions.onTabSelect
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
@@ -27,11 +28,15 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     private var currentTaskFragment: TaskFragment? = null
     private var doneTaskFragment: TaskFragment? = null
 
+    lateinit var dbHelper: DbHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         AppPreferences.init(this)
+        dbHelper = DbHelper(this)
+
         fragmentManager = supportFragmentManager
         runSplash()
         setUI()
@@ -107,7 +112,7 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     private fun onTaskAdded(data: Intent?) {
         if (data != null) {
             val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConst.TASK)
-            currentTaskFragment?.addTask(modelTask)
+            currentTaskFragment?.addTask(modelTask, true)
         }
     }
 
@@ -116,11 +121,11 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     }
 
     override fun onTaskDone(task: ModelTask) {
-        doneTaskFragment?.addTask(task)
+        doneTaskFragment?.addTask(task, false)
     }
 
     override fun onTaskRestore(task: ModelTask) {
-        currentTaskFragment?.addTask(task)
+        currentTaskFragment?.addTask(task, false)
     }
 
 }

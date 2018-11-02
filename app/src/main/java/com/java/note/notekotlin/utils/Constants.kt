@@ -26,3 +26,36 @@ object Status {
     const val STATUS_CURRENT = 1
     const val STATUS_DONE = 2
 }
+
+object Database {
+    const val NAME = "note_database"
+    const val VERSION = 1
+
+    const val TASKS_TABLE = "tasks_table"
+
+    object Column {
+        const val TASK_ID = "_id"
+        const val TASK_TITLE = "task_title"
+        const val TASK_DATE = "task_date"
+        const val TASK_PRIORITY = "task_priority"
+        const val TASK_STATUS = "task_status"
+        const val TASK_TIME_STAMP = "task_time_stamp"
+    }
+
+
+    fun createScript(): String =
+        "create table $TASKS_TABLE (" +
+                "${Column.TASK_ID} integer primary key autoincrement," +
+                "${Column.TASK_TITLE} text not null," +
+                "${Column.TASK_DATE} long," +
+                "${Column.TASK_PRIORITY} integer," +
+                "${Column.TASK_STATUS} integer," +
+                "${Column.TASK_TIME_STAMP} long" + ");"
+
+
+    fun deleteScript(): String = "drop table $TASKS_TABLE"
+}
+
+object Selection {
+    const val STATUS: String = "${Database.Column.TASK_STATUS} = ?"
+}
