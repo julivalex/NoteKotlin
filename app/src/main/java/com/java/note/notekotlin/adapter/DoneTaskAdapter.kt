@@ -2,6 +2,7 @@ package com.java.note.notekotlin.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,14 @@ class DoneTaskAdapter(taskFragment: DoneTaskFragment) : TaskAdapter(taskFragment
             holder.date.setTextColor(getColorResource(itemView.context, R.color.secondary_text_disabled))
             holder.priority.setColorFilter(getColorResource(itemView.context, modelTask.getPriorityColor()))
             holder.priority.setImageResource(R.mipmap.ic_check_circle_white_48dp)
+
+            itemView.setOnLongClickListener {
+                val handler = Handler()
+                handler.postDelayed({
+                    taskFragment.removeTaskDialog(holder.layoutPosition)
+                }, 1000)
+                return@setOnLongClickListener true
+            }
 
             holder.priority.setOnClickListener {
                 modelTask.status = Status.STATUS_CURRENT

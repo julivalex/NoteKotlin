@@ -7,7 +7,8 @@ import com.java.note.notekotlin.fragment.TaskFragment
 import com.java.note.notekotlin.model.Item
 import de.hdodenhof.circleimageview.CircleImageView
 
-abstract class TaskAdapter(val taskFragment: TaskFragment) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+abstract class TaskAdapter(val taskFragment: TaskFragment) :
+    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     val items: MutableList<Item> = ArrayList()
 

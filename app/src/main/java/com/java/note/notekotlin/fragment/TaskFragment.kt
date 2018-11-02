@@ -62,7 +62,6 @@ abstract class TaskFragment : Fragment() {
         val removingTask: Item = adapterRecycler.getItem(position)
 
         if (removingTask is ModelTask && removingTask.isTask()) {
-
             val timestamp: Long = removingTask.timestamp
             isRemoved = false
 
@@ -83,7 +82,6 @@ abstract class TaskFragment : Fragment() {
                         mainActivity.dbHelper.removeTask(timestamp)
                     }
                 }
-
                 snackbar.show()
 
                 dialog.dismiss()
@@ -93,12 +91,10 @@ abstract class TaskFragment : Fragment() {
                 dialog.cancel()
             }
         }
-
         dialogBuilder.show()
     }
 
     abstract fun addTaskFromDb()
 
     abstract fun moveTask(modelTask: ModelTask)
-
 }

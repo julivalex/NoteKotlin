@@ -2,6 +2,7 @@ package com.java.note.notekotlin.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,10 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
             holder.priority.setImageResource(R.mipmap.ic_circle_white_48dp)
 
             itemView.setOnLongClickListener {
-                taskFragment.removeTaskDialog(position)
+                val handler = Handler()
+                handler.postDelayed({
+                    taskFragment.removeTaskDialog(holder.layoutPosition)
+                }, 1000)
                 return@setOnLongClickListener true
             }
 
