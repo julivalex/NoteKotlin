@@ -31,6 +31,13 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
         }
     }
 
+    fun removeAllItems() {
+        if(itemCount != 0) {
+            items.clear()
+            notifyDataSetChanged()
+        }
+    }
+
     override fun getItemCount(): Int = items.size
 
     open class ViewHolder(

@@ -44,12 +44,30 @@ class CurrentTaskFragment : TaskFragment() {
     }
 
     override fun addTaskFromDb() {
+        adapterRecycler.removeAllItems()
         val tasks: MutableList<ModelTask> = ArrayList()
         tasks.addAll(
             mainActivity.dbHelper.queryManager
                 .getTasks(
                     "${Selection.STATUS} OR ${Selection.STATUS}",
                     arrayOf(Status.STATUS_CURRENT.toString(), Status.STATUS_OVERDUE.toString()),
+                    Database.Column.TASK_DATE
+                )
+        )
+
+        for (task: ModelTask in tasks) {
+            addTask(task, false)
+        }
+    }
+
+    override fun findTasks(title: String) {
+        adapterRecycler.removeAllItems()
+        val tasks: MutableList<ModelTask> = ArrayList()
+        tasks.addAll(
+            mainActivity.dbHelper.queryManager
+                .getTasks(
+                    "${Selection.SELECTION_LIKE_TITLE} AND ${Selection.STATUS} OR ${Selection.STATUS}",
+                    arrayOf("%$title%", Status.STATUS_CURRENT.toString(), Status.STATUS_OVERDUE.toString()),
                     Database.Column.TASK_DATE
                 )
         )

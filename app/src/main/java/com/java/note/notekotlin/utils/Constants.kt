@@ -59,4 +59,5 @@ object Database {
 object Selection {
     const val STATUS: String = "${Database.Column.TASK_STATUS} = ?"
     const val TIME_STAMP: String = "${Database.Column.TASK_TIME_STAMP} = ?"
+    const val SELECTION_LIKE_TITLE = "${Database.Column.TASK_TITLE} LIKE ?"
 }

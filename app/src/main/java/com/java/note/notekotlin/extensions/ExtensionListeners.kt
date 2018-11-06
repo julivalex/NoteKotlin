@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
+import android.support.v7.widget.SearchView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -76,6 +77,19 @@ fun Snackbar.setViewDetachedFromWindow(removeTask: () -> Unit) {
         }
 
         override fun onViewAttachedToWindow(view: View) {
+        }
+    })
+}
+
+fun SearchView.queryTextChange(change: (String) -> Unit) {
+    this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String): Boolean {
+            return false
+        }
+
+        override fun onQueryTextChange(newText: String): Boolean {
+            change(newText)
+            return false
         }
     })
 }

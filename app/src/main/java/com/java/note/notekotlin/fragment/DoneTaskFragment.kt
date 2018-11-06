@@ -44,9 +44,22 @@ class DoneTaskFragment : TaskFragment() {
     }
 
     override fun addTaskFromDb() {
+        adapterRecycler.removeAllItems()
         val tasks: MutableList<ModelTask> = ArrayList()
         tasks.addAll(mainActivity.dbHelper.queryManager
             .getTasks(Selection.STATUS, arrayOf(Status.STATUS_DONE.toString()), Database.Column.TASK_DATE))
+
+        for (task: ModelTask in tasks) {
+            addTask(task, false)
+        }
+    }
+
+    override fun findTasks(title: String) {
+        adapterRecycler.removeAllItems()
+        val tasks: MutableList<ModelTask> = ArrayList()
+        tasks.addAll(mainActivity.dbHelper.queryManager
+            .getTasks("${Selection.SELECTION_LIKE_TITLE} AND ${Selection.STATUS}",
+                arrayOf("%$title%", Status.STATUS_DONE.toString()), Database.Column.TASK_DATE))
 
         for (task: ModelTask in tasks) {
             addTask(task, false)

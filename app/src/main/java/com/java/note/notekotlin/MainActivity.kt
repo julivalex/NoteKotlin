@@ -11,6 +11,7 @@ import android.view.MenuItem
 import com.java.note.notekotlin.adapter.TabAdapter
 import com.java.note.notekotlin.database.DbHelper
 import com.java.note.notekotlin.extensions.onTabSelect
+import com.java.note.notekotlin.extensions.queryTextChange
 import com.java.note.notekotlin.fragment.CurrentTaskFragment
 import com.java.note.notekotlin.fragment.DoneTaskFragment
 import com.java.note.notekotlin.fragment.SplashFragment
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
+        val id: Int = item.itemId
         if (id == R.id.menuActionSplash) {
             item.isChecked = !item.isChecked
             AppPreferences.firstRun = item.isChecked
@@ -90,6 +91,11 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
         fab.setOnClickListener {
             val intent = Intent(this, NewTaskActivity::class.java)
             startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK)
+        }
+
+        searchView.queryTextChange {
+            currentTaskFragment?.findTasks(it)
+            doneTaskFragment?.findTasks(it)
         }
 
         val currentTask: TaskFragment = tabAdapter.getItem(TabAdapterConst.CURRENT_TASK_FRAGMENT_POSITION)

@@ -94,6 +94,8 @@ abstract class TaskFragment : Fragment() {
         dialogBuilder.show()
     }
 
+    abstract fun findTasks(title: String)
+
     abstract fun addTaskFromDb()
 
     abstract fun moveTask(modelTask: ModelTask)
