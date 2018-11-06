@@ -9,12 +9,12 @@ fun getDate(date: Long): String {
 }
 
 fun getTime(time: Long): String {
-    val timeFormat = SimpleDateFormat("HH.mm", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     return timeFormat.format(time)
 }
 
 fun getDateTime(time: Long): String {
-    val timeFormat = SimpleDateFormat("dd.MM.yy HH.mm", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("dd.MM.yy HH:mm", Locale.getDefault())
     return timeFormat.format(time)
 }
 
