@@ -40,6 +40,8 @@ class DoneTaskAdapter(taskFragment: DoneTaskFragment) : TaskAdapter(taskFragment
             }
 
             itemView.visibility = View.VISIBLE
+            holder.priority.isEnabled = true
+
             itemView.setBackgroundColor(getColorResource(itemView.context, R.color.gray_200))
 
             holder.title.setTextColor(getColorResource(itemView.context, R.color.primary_text_disabled))
@@ -56,6 +58,7 @@ class DoneTaskAdapter(taskFragment: DoneTaskFragment) : TaskAdapter(taskFragment
             }
 
             holder.priority.setOnClickListener {
+                holder.priority.isEnabled = false
                 modelTask.status = Status.STATUS_CURRENT
                 taskFragment.mainActivity.dbHelper.updateManager.updateStatus(modelTask.timestamp, modelTask.status)
 
