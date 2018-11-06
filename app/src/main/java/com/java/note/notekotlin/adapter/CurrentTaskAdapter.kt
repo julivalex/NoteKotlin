@@ -54,8 +54,6 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
             itemView.visibility = View.VISIBLE
             holder.priority.isEnabled = true
 
-            itemView.setBackgroundColor(getColorResource(itemView.context, R.color.gray_50))
-
             holder.title.setTextColor(getColorResource(itemView.context, R.color.primary_text_default))
             holder.date.setTextColor(getColorResource(itemView.context, R.color.secondary_text_default))
             holder.priority.setColorFilter(getColorResource(itemView.context, modelTask.getPriorityColor()))
@@ -73,8 +71,6 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
                 holder.priority.isEnabled = false
                 modelTask.status = Status.STATUS_DONE
                 taskFragment.mainActivity.dbHelper.updateManager.updateStatus(modelTask.timestamp, modelTask.status)
-
-                itemView.setBackgroundColor(getColorResource(itemView.context, R.color.gray_200))
 
                 holder.title.setTextColor(getColorResource(itemView.context, R.color.primary_text_disabled))
                 holder.date.setTextColor(getColorResource(itemView.context, R.color.secondary_text_disabled))
