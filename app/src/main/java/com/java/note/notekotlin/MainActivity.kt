@@ -43,6 +43,16 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
         setUI()
     }
 
+    override fun onResume() {
+        super.onResume()
+        MyApplication.activityResumed()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        MyApplication.activityPaused()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         val splashItem = menu.findItem(R.id.menuActionSplash)
