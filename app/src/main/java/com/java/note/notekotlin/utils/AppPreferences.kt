@@ -16,7 +16,7 @@ object AppPreferences {
     }
 
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
-        val editor = edit()
+        val editor:SharedPreferences.Editor = edit()
         operation(editor)
         editor.apply()
 

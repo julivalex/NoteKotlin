@@ -40,6 +40,9 @@ class DoneTaskFragment : TaskFragment() {
     }
 
     override fun moveTask(modelTask: ModelTask) {
+        if(modelTask.date != 0L) {
+            alarmHelper.setAlarm(modelTask)
+        }
         onTaskRestoreListener?.onTaskRestore(task = modelTask)
     }
 

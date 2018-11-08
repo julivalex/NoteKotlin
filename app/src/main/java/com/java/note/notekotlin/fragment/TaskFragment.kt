@@ -11,6 +11,7 @@ import com.java.note.notekotlin.adapter.TaskAdapter
 import com.java.note.notekotlin.extensions.setViewDetachedFromWindow
 import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelTask
+import com.java.note.notekotlin.receiver.AlarmHelper
 
 abstract class TaskFragment : Fragment() {
 
@@ -20,6 +21,7 @@ abstract class TaskFragment : Fragment() {
     lateinit var mainActivity: MainActivity
 
     private var isRemoved: Boolean = false
+    lateinit var alarmHelper: AlarmHelper
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -28,6 +30,7 @@ abstract class TaskFragment : Fragment() {
             mainActivity = activity as MainActivity
         }
 
+        alarmHelper = AlarmHelper(mainActivity)
         addTaskFromDb()
     }
 
@@ -80,6 +83,7 @@ abstract class TaskFragment : Fragment() {
                 snackbar.setViewDetachedFromWindow {
                     if (isRemoved) {
                         mainActivity.dbHelper.removeTask(timestamp)
+                        alarmHelper.removeAlarm(timestamp)
                     }
                 }
                 snackbar.show()

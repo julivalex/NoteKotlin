@@ -10,6 +10,7 @@ import com.java.note.notekotlin.R
 import com.java.note.notekotlin.extensions.onChange
 import com.java.note.notekotlin.extensions.setItemSelected
 import com.java.note.notekotlin.model.ModelTask
+import com.java.note.notekotlin.receiver.AlarmHelper
 import com.java.note.notekotlin.utils.*
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_new_task.*
 class NewTaskActivity : AppCompatActivity() {
 
     private lateinit var taskIntent: Intent
+    private lateinit var alarmHelper: AlarmHelper
     private var datePickerFragment: DatePickerFragment? = null
     private var timePickerFragment: TimePickerFragment? = null
 
@@ -26,6 +28,7 @@ class NewTaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_task)
 
         taskIntent = Intent()
+        alarmHelper = AlarmHelper(this)
 
         toolbarNewTask.setTitleTextColor(getToolbarTitleColor(this))
         toolbarNewTask.setTitle(R.string.new_task_title)
@@ -87,6 +90,8 @@ class NewTaskActivity : AppCompatActivity() {
             task.status = Status.STATUS_CURRENT
             if (editTaskDate.length() != 0 || editTaskTime.length() != 0) {
                 task.date = dateTime
+
+                alarmHelper.setAlarm(task)
             }
 
             taskIntent.putExtra(ModelTaskConst.TASK, task)

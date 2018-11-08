@@ -40,6 +40,7 @@ class CurrentTaskFragment : TaskFragment() {
     }
 
     override fun moveTask(modelTask: ModelTask) {
+        alarmHelper.removeAlarm(modelTask.timestamp)
         onTaskDoneListener?.onTaskDone(task = modelTask)
     }
 
