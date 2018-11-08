@@ -1,5 +1,7 @@
 package com.java.note.notekotlin.utils
 
+import com.java.note.notekotlin.R
+
 object RequestCode {
     const val REQUEST_CODE_NEW_TASK = 1
 }
@@ -60,4 +62,11 @@ object Selection {
     const val STATUS: String = "${Database.Column.TASK_STATUS} = ?"
     const val TIME_STAMP: String = "${Database.Column.TASK_TIME_STAMP} = ?"
     const val SELECTION_LIKE_TITLE = "${Database.Column.TASK_TITLE} LIKE ?"
+}
+
+object Separator {
+    const val TYPE_OVERDUE = R.string.separator_overdue
+    const val TYPE_TODAY = R.string.separator_today
+    const val TYPE_TOMORROW = R.string.separator_tomorrow
+    const val TYPE_FUTURE = R.string.separator_future
 }

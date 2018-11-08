@@ -10,7 +10,7 @@ import java.util.*
 @Parcelize
 data class ModelTask(
     var title: String, var date: Long,
-    var priority: Int, var status: Int, var timestamp: Long
+    var priority: Int, var status: Int, var timestamp: Long, var dateStatus: Int = 0
 ) : Item, Parcelable {
 
     constructor() : this("", 0L, 0, -1, Date().time)

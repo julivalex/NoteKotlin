@@ -23,6 +23,14 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
         const val TYPE_SEPARATOR = 1
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (getItem(position).isTask()) {
+            TYPE_TASK
+        } else {
+            TYPE_SEPARATOR
+        }
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.model_task, viewGroup, false)
@@ -100,14 +108,6 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
                 }
                 rotationY.start()
             }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (getItem(position).isTask()) {
-            TYPE_TASK
-        } else {
-            TYPE_SEPARATOR
         }
     }
 }
