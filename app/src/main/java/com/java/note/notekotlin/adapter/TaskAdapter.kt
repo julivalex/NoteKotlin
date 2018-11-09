@@ -10,7 +10,7 @@ import com.java.note.notekotlin.utils.Separator
 import de.hdodenhof.circleimageview.CircleImageView
 
 abstract class TaskAdapter(val taskFragment: TaskFragment) :
-    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var containsSeparatorOverdue: Boolean = false
     var containsSeparatorToday: Boolean = false
@@ -70,7 +70,7 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
         }
     }
 
-    fun checkSeparators(type: Int) {
+    private fun checkSeparators(type: Int) {
         when (type) {
             Separator.TYPE_OVERDUE -> containsSeparatorOverdue = false
             Separator.TYPE_TODAY -> containsSeparatorToday = false
@@ -82,7 +82,7 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
 
     override fun getItemCount(): Int = items.size
 
-    open class ViewHolder(
+    open class TaskViewHolder(
         val view: View,
         val title: TextView,
         val date: TextView,
