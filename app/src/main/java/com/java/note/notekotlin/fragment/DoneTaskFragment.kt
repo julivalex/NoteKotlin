@@ -8,6 +8,7 @@ import com.java.note.notekotlin.R
 import android.view.View
 import android.view.ViewGroup
 import com.java.note.notekotlin.adapter.DoneTaskAdapter
+import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.Database
 import com.java.note.notekotlin.utils.Selection
@@ -67,5 +68,29 @@ class DoneTaskFragment : TaskFragment() {
         for (task: ModelTask in tasks) {
             addTask(task, false)
         }
+    }
+
+    override fun addTask(newTask: ModelTask, saveToDb: Boolean)  {
+        var position = -1
+        var i = 0
+        while (i < adapterRecycler.itemCount) {
+            if (adapterRecycler.getItem(i).isTask()) {
+                val oldTask: Item = adapterRecycler.getItem(i)
+                if (oldTask is ModelTask && newTask.date < oldTask.date) {
+                    position = i
+                    break
+                }
+            }
+            i++
+        }
+
+        if (position != -1) {
+            adapterRecycler.addItem(position, newTask)
+        } else {
+            adapterRecycler.addItem(newTask)
+        }
+
+        if (saveToDb)
+            mainActivity.dbHelper.saveTask(newTask)
     }
 }

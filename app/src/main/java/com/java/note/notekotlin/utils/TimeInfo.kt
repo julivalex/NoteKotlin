@@ -18,7 +18,7 @@ fun getDateTime(time: Long): String {
     return timeFormat.format(time)
 }
 
-fun combineCalendars(calendarDate: Calendar?, calendarTime: Calendar?) =
+fun combineCalendars(calendarDate: Calendar?, calendarTime: Calendar?): Long =
     Calendar.getInstance().apply {
         set(Calendar.HOUR_OF_DAY, get(Calendar.HOUR_OF_DAY) + 1)
         if (calendarDate != null) {

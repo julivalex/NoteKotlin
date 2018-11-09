@@ -79,7 +79,6 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
         }
     }
 
-
     override fun getItemCount(): Int = items.size
 
     open class TaskViewHolder(
