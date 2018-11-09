@@ -63,6 +63,10 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
         if (itemCount != 0) {
             items.clear()
             notifyDataSetChanged()
+            containsSeparatorOverdue = false
+            containsSeparatorToday = false
+            containsSeparatorTomorrow = false
+            containsSeparatorFuture = false
         }
     }
 

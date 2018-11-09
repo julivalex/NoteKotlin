@@ -26,7 +26,6 @@ data class ModelTask(
                     R.color.priority_high_selected
                 }
             }
-
             Priority.PRIORITY_NORMAL -> {
                 if (isStatusCurrentOrOverdue()) {
                     R.color.priority_normal

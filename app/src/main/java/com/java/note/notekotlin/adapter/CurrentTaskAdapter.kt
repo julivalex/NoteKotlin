@@ -14,6 +14,7 @@ import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.Status
 import com.java.note.notekotlin.utils.getColorResource
 import com.java.note.notekotlin.utils.getDateTime
+import kotlinx.android.synthetic.main.model_separator.view.*
 import kotlinx.android.synthetic.main.model_task.view.*
 
 class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFragment) {
@@ -32,15 +33,17 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.model_task, viewGroup, false)
 
         return when (viewType) {
             TYPE_TASK -> {
-                ViewHolder(view, view.tvTaskTitle, view.tvTaskDate, view.cvTaskPriority)
+                val task: View = LayoutInflater.from(viewGroup.context)
+                    .inflate(R.layout.model_task, viewGroup, false)
+                ViewHolder(task, task.tvTaskTitle, task.tvTaskDate, task.cvTaskPriority)
             }
             else -> {
-                ViewHolder(view, view.tvTaskTitle, view.tvTaskDate, view.cvTaskPriority)
+                val separator: View = LayoutInflater.from(viewGroup.context)
+                    .inflate(R.layout.model_separator, viewGroup, false)
+                SeparatorViewHolder(separator, separator.tvSeparatorName)
             }
         }
     }
