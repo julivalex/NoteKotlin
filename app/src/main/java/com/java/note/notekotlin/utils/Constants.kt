@@ -20,7 +20,7 @@ object Priority {
     const val PRIORITY_NORMAL = 1
     const val PRIORITY_HIGH = 2
 
-    val PRIORITY_LEVELS = arrayOf("Low Priority", "Normal Priority", "High Priority")
+    //val PRIORITY_LEVELS = arrayOf("Low Priority", "Normal Priority", "High Priority")
 }
 
 object Status {

@@ -41,7 +41,11 @@ class NewTaskActivity : AppCompatActivity() {
         val task = ModelTask()
 
         spinnerPriority.adapter =
-                ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Priority.PRIORITY_LEVELS)
+                ArrayAdapter(
+                    this,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    resources.getStringArray(R.array.priority_levels)
+                )
 
         spinnerPriority.setItemSelected {
             task.priority = it
