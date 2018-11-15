@@ -8,7 +8,6 @@ import com.java.note.notekotlin.R
 import android.view.View
 import android.view.ViewGroup
 import com.java.note.notekotlin.adapter.CurrentTaskAdapter
-import com.java.note.notekotlin.adapter.TaskAdapter
 import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelSeparator
 import com.java.note.notekotlin.model.ModelTask
@@ -131,7 +130,6 @@ class CurrentTaskFragment : TaskFragment() {
         }
 
         if (position != -1) {
-
             if (!adapterRecycler.getItem(position - 1).isTask()) {
                 if (position - 2 >= 0 && adapterRecycler.getItem(position - 2).isTask()) {
                     val task: Item = adapterRecycler.getItem(position - 2)
@@ -142,8 +140,6 @@ class CurrentTaskFragment : TaskFragment() {
                     position -= 1
                 }
             }
-
-
             if (separator != null) {
                 adapterRecycler.addItem(position - 1, separator)
             }
@@ -154,8 +150,8 @@ class CurrentTaskFragment : TaskFragment() {
             }
             adapterRecycler.addItem(newTask)
         }
-
         if (saveToDb)
             mainActivity.dbHelper.saveTask(newTask)
     }
+
 }

@@ -1,6 +1,7 @@
 package com.java.note.notekotlin.fragment
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -11,7 +12,10 @@ import com.java.note.notekotlin.adapter.TaskAdapter
 import com.java.note.notekotlin.extensions.setViewDetachedFromWindow
 import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelTask
+import com.java.note.notekotlin.newtask.EditTaskActivity
 import com.java.note.notekotlin.receiver.AlarmHelper
+import com.java.note.notekotlin.utils.ModelTaskConst
+import com.java.note.notekotlin.utils.RequestCode
 
 abstract class TaskFragment : Fragment() {
 
@@ -72,6 +76,16 @@ abstract class TaskFragment : Fragment() {
             }
         }
         dialogBuilder.show()
+    }
+
+    fun updateTask(task: ModelTask) {
+        adapterRecycler.updateTask(task)
+    }
+
+    fun showEditTaskActivity(task: ModelTask) {
+        val intent = Intent(activity, EditTaskActivity::class.java)
+        intent.putExtra(ModelTaskConst.TASK, task)
+        mainActivity.startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK)
     }
 
     abstract fun findTasks(title: String)

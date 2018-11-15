@@ -117,18 +117,39 @@ class MainActivity : AppCompatActivity(), CurrentTaskFragment.OnTaskDoneListener
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (resultCode) {
-            Activity.RESULT_OK -> if (requestCode == 1) {
-                onTaskAdded(data)
+        when (requestCode) {
+            RequestCode.REQUEST_CODE_NEW_TASK -> {
+                getResultCodeData(data, resultCode) {
+                    onTaskAdded(data)
+                }
             }
-            Activity.RESULT_CANCELED -> onTaskCancel()
+            RequestCode.REQUEST_CODE_EDIT_TASK -> {
+                getResultCodeData(data, resultCode) {
+                    onTaskEdited(data)
+                }
+            }
         }
     }
 
     private fun onTaskAdded(data: Intent?) {
         if (data != null) {
-            val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConst.TASK)
+            val modelTask: ModelTask = data.getParcelableExtra(ModelTaskConst.TASK_BACK)
             currentTaskFragment?.addTask(modelTask, true)
+        }
+    }
+
+    private fun onTaskEdited(data: Intent?) {
+        if (data != null) {
+            val updateTask: ModelTask = data.getParcelableExtra(ModelTaskConst.TASK_BACK)
+            currentTaskFragment?.updateTask(updateTask)
+            dbHelper.updateManager.updateTask(updateTask)
+        }
+    }
+
+    private inline fun getResultCodeData(data: Intent?, resultCode: Int, useTask: (Intent?) -> Unit) {
+        when (resultCode) {
+            Activity.RESULT_OK -> useTask(data)
+            Activity.RESULT_CANCELED -> onTaskCancel()
         }
     }
 

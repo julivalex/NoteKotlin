@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".newtask.NewTaskActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".newtask.EditTaskActivity"
+                  android:screenOrientation="portrait"/>
 
         <receiver android:name=".receiver.AlarmReceiver"
                   android:process=":remote"/>

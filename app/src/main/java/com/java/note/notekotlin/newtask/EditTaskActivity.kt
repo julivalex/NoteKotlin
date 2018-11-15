@@ -12,11 +12,10 @@ import com.java.note.notekotlin.extensions.setItemSelected
 import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.receiver.AlarmHelper
 import com.java.note.notekotlin.utils.*
-
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_new_task.*
 
-class NewTaskActivity : AppCompatActivity() {
+class EditTaskActivity : AppCompatActivity() {
 
     private lateinit var taskIntent: Intent
     private lateinit var alarmHelper: AlarmHelper
@@ -27,18 +26,25 @@ class NewTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_task)
 
-        taskIntent = Intent()
+        taskIntent = intent
+        val task: ModelTask = taskIntent.getParcelableExtra(ModelTaskConst.TASK)
         alarmHelper = AlarmHelper(this)
 
         toolbarNewTask.setTitleTextColor(getToolbarTitleColor(this))
-        toolbarNewTask.setTitle(R.string.new_task_title)
+        toolbarNewTask.setTitle(R.string.edit_task_title)
         setSupportActionBar(toolbar)
 
         tilTaskTitle.hint = getString(R.string.task_title)
         tilTaskDate.hint = getString(R.string.task_date)
         tilTaskTime.hint = getString(R.string.task_time)
 
-        val task = ModelTask()
+        editTaskTitle.setText(task.title)
+        editTaskTitle.setSelection(editTaskTitle.length())
+
+        if (task.date != 0L) {
+            editTaskDate.setText(getDate(task.date))
+            editTaskTime.setText(getTime(task.date))
+        }
 
         spinnerPriority.adapter =
                 ArrayAdapter(
@@ -46,6 +52,8 @@ class NewTaskActivity : AppCompatActivity() {
                     android.R.layout.simple_spinner_dropdown_item,
                     resources.getStringArray(R.array.priority_levels)
                 )
+
+        spinnerPriority.setSelection(task.priority)
 
         spinnerPriority.setItemSelected {
             task.priority = it
@@ -88,16 +96,16 @@ class NewTaskActivity : AppCompatActivity() {
 
         buttonOk.setOnClickListener {
             val dateTime: Long =
-                combineCalendars(datePickerFragment?.getDateCalendar(), timePickerFragment?.getTimeCalendar())
+                combineCalendars(datePickerFragment?.getDateCalendar(), timePickerFragment?.getTimeCalendar(), task)
 
             task.title = editTaskTitle.text.toString()
             task.status = Status.STATUS_CURRENT
             if (editTaskDate.length() != 0 || editTaskTime.length() != 0) {
-                task.date = dateTime
-
+                if (datePickerFragment?.getDateCalendar() != null || timePickerFragment?.getTimeCalendar() != null) {
+                    task.date = dateTime
+                }
                 alarmHelper.setAlarm(task)
             }
-
             taskIntent.putExtra(ModelTaskConst.TASK_BACK, task)
             setResult(Activity.RESULT_OK, taskIntent)
             finish()

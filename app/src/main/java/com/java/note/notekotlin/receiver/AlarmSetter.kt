@@ -27,7 +27,7 @@ class AlarmSetter : BroadcastReceiver() {
         )
 
         for (task: ModelTask in tasks) {
-            if(task.date != 0L)  {
+            if (task.date != 0L) {
                 alarmHelper.setAlarm(task)
             }
         }

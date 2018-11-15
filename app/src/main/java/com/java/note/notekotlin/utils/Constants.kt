@@ -4,10 +4,12 @@ import com.java.note.notekotlin.R
 
 object RequestCode {
     const val REQUEST_CODE_NEW_TASK = 1
+    const val REQUEST_CODE_EDIT_TASK = 2
 }
 
 object ModelTaskConst {
     const val TASK = "ModelTask"
+    const val TASK_BACK = "ModelTaskBack"
 }
 
 object TabAdapterConst {
@@ -19,8 +21,6 @@ object Priority {
     const val PRIORITY_LOW = 0
     const val PRIORITY_NORMAL = 1
     const val PRIORITY_HIGH = 2
-
-    //val PRIORITY_LEVELS = arrayOf("Low Priority", "Normal Priority", "High Priority")
 }
 
 object Status {

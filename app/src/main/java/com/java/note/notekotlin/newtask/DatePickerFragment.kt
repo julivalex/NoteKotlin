@@ -32,5 +32,4 @@ open class DatePickerFragment : DialogFragment(),
     }
 
     fun getDateCalendar(): Calendar = calendar
-
 }

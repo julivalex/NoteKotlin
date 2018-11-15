@@ -84,6 +84,10 @@ class CurrentTaskAdapter(taskFragment: CurrentTaskFragment) : TaskAdapter(taskFr
             )
             holder.priority.setImageResource(R.mipmap.ic_circle_white_48dp)
 
+            itemView.setOnClickListener {
+                taskFragment.showEditTaskActivity(modelTask)
+            }
+
             itemView.setOnLongClickListener {
                 val handler = Handler()
                 handler.postDelayed({

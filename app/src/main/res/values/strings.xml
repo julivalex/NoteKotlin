@@ -9,7 +9,7 @@
     <string name="do_not_show_splash">Don\'t show splash</string>
     <string name="current_task">Current</string>
     <string name="done_task">Done</string>
-    <string name="dialog_editing_title">Editing task</string>
+    <string name="edit_task_title">Edit task</string>
     <string name="new_task_title">New task</string>
     <string name="task_title">Title</string>
     <string name="task_date">Date</string>

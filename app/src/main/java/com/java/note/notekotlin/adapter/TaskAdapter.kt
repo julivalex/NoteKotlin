@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.java.note.notekotlin.fragment.TaskFragment
 import com.java.note.notekotlin.model.Item
 import com.java.note.notekotlin.model.ModelSeparator
+import com.java.note.notekotlin.model.ModelTask
 import com.java.note.notekotlin.utils.Separator
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -17,7 +18,7 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
     var containsSeparatorTomorrow: Boolean = false
     var containsSeparatorFuture: Boolean = false
 
-    val items: MutableList<Item> = ArrayList()
+    private val items: MutableList<Item> = ArrayList()
 
     fun getItem(position: Int): Item = items[position]
 
@@ -29,6 +30,20 @@ abstract class TaskAdapter(val taskFragment: TaskFragment) :
     fun addItem(position: Int, item: Item) {
         items.add(index = position, element = item)
         notifyItemInserted(position)
+    }
+
+    fun updateTask(newTask: ModelTask) {
+        var i = 0
+        while (i < itemCount) {
+            val item: Item = getItem(i)
+            if (getItem(i).isTask() && item is ModelTask) {
+                if (newTask.timestamp == item.timestamp) {
+                    remoteItem(i)
+                    taskFragment.addTask(newTask, false)
+                }
+            }
+            i++
+        }
     }
 
     fun remoteItem(position: Int) {
